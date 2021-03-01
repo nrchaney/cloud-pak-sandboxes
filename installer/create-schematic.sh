@@ -70,7 +70,7 @@ get_cloud_pak_install() {
                 cp workspace-configuration.json temp.json
                 jq -r ".template_repo.url |= \"https://github.com/ibm-hcbt/cloud-pak-sandboxes/tree/master/terraform/cp4data\"" temp.json  > workspace-configuration.json
                 cp workspace-configuration.json temp.json
-                jq -r ".template_repo.branch |= \"master\"" temp.json > workspace-configuration.json
+                jq -r ".template_repo.branch |= \"cp4d3.5-operator\"" temp.json > workspace-configuration.json
                 break
                 ;;
             "Cloud Pak for Data 3.0")

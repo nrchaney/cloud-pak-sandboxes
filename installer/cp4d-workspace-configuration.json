@@ -41,7 +41,7 @@
         },
         {
           "name": "resource_group",
-          "value": "cloud-pak-sandbox",
+          "value": "cloud-pak-sandbox-ibm",
           "type": "string"
         },
         {
@@ -60,11 +60,6 @@
         },
         {
           "name": "public_vlan_number",
-          "type": "string"
-        },
-        {
-          "name": "storage_class_name",
-          "value": "ibmc-file-custom-gold-gid",
           "type": "string"
         },
         {
