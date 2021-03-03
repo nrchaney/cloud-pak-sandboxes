@@ -12,8 +12,8 @@ project_name = "cloud-pack"
 owner        = "anonymous"
 environment  = "sandbox"
 region       = "us-south"
-resource_group = "cloud-pak-sandbox"
-// resource_group = "cloud-pak-sandbox-ibm"
+//resource_group = "cloud-pak-sandbox"
+resource_group = "cloud-pak-sandbox-ibm"
 datacenter     = "dal10"
 
 // VLAN's numbers on datacenter 'dal10' on Humio account. They are here until the
@@ -40,7 +40,7 @@ public_vlan_number  = "2979230"
 // CP4DATA Parametrers:
 // --------------------
 
-storage_class_name = "ibmc-file-custom-gold-gid"
+// storage_class_name = "ibmc-file-custom-gold-gid"
 
 // CP4DATA Modules installation parameters
 // ---------------------------------------

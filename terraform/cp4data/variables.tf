@@ -44,10 +44,10 @@ variable "public_vlan_number" {
 //   description = "Command to execute by the cp4data installer, the most common are: install, uninstall, check, upgrade"
 // }
 
-variable "storage_class_name" {
-  default     = "ibmc-file-custom-gold-gid"
-  description = "Storage Class name to use. Supported Storage Classes: ibmc-file-custom-gold-gid, portworx-shared-gp3"
-}
+//variable "storage_class_name" {
+//  default     = "ibmc-file-custom-gold-gid"
+//  description = "Storage Class name to use. Supported Storage Classes: ibmc-file-custom-gold-gid, portworx-shared-gp3"
+//}
 
 variable "entitled_registry_key" {
   default     = ""

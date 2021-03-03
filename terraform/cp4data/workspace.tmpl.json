@@ -63,11 +63,6 @@
           "type": "string"
         },
         {
-          "name": "storage_class_name",
-          "value": "ibmc-file-custom-gold-gid",
-          "type": "string"
-        },
-        {
           "name": "entitled_registry_key",
           "value": "{{ ENTITLED_KEY }}",
           "type": "string",
