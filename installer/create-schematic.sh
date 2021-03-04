@@ -69,7 +69,7 @@ get_cloud_pak_install() {
                 CP4D35="true"
                 cp ./cp4d-workspace-configuration.json workspace-configuration.json
                 cp workspace-configuration.json temp.json
-                jq -r ".template_repo.url |= \"https://github.com/ibm-hcbt/cloud-pak-sandboxes/tree/master/terraform/cp4data\"" temp.json  > workspace-configuration.json
+                jq -r ".template_repo.url |= \"https://github.com/ibm-hcbt/cloud-pak-sandboxes/tree/dev-cp4d/terraform/cp4data\"" temp.json  > workspace-configuration.json
                 cp workspace-configuration.json temp.json
                 jq -r ".template_repo.branch |= \"master\"" temp.json > workspace-configuration.json
                 break
