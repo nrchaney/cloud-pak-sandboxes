@@ -59,7 +59,7 @@ data "ibm_container_cluster_config" "cluster_config" {
 // TODO: With Terraform 0.13 replace the parameter 'enable' with 'count'
 module "cp4data" {
   // source = "../../../../ibm-hcbt/terraform-ibm-cloud-pak/cp4data"
-  source = "git::https://github.com/ibm-hcbt/terraform-ibm-cloud-pak.git//cp4data"
+  source = "git::https://github.com/ibm-hcbt/terraform-ibm-cloud-pak.git//cp4data?ref=cp4d-schematic"
   enable = true
   force  = true
 
