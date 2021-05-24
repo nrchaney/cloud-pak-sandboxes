@@ -65,7 +65,7 @@ module "portworx" {
 
   // Cluster parameters
   kube_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
-  worker_nodes     = var.workers_count[0]  // Number of workers
+  worker_nodes     = local.workers_count[0]  // Number of workers
 
   // Storage parameters
   install_storage      = true
