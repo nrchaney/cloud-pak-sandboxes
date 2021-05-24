@@ -101,9 +101,6 @@ module "iaf" {
   openshift_version   = local.roks_version
   cluster_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
 
-  // Was Portworx installed? If so, will need to wait until it is finished, If not installed, force a value so MCM will install
-  portworx_is_ready = var.install_portworx ? module.portworx.portworx_is_ready : "true"
-
   // IBM Cloud API Key
   ibmcloud_api_key          = var.ibmcloud_api_key
 
