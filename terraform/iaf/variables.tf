@@ -14,23 +14,23 @@ variable "on_vpc" {
 
 variable "region" {
   default     = "us-south"
-  description = "Ignored if `cluster_id` is specified. Region to provision the Openshift cluster. List all available regions with: ibmcloud regions"
+  description = "Ignored if `cluster_id` is specified. Region to provision the Openshift cluster. List all available regions with: `ibmcloud regions`"
 }
 
 variable "resource_group" {
   default     = "Default"
-  description = "Ignored if `cluster_id` is specified. Resource Group in your account to host the cluster. List all available resource groups with: ibmcloud resource groups"
+  description = "Ignored if `cluster_id` is specified. Resource Group in your account to host the cluster. List all available resource groups with: `ibmcloud resource groups`"
 }
 
 // Only required if cluster id is not specified
 variable "project_name" {
-  description = "Ignored if `cluster_id` is specified. The project_name is combined with environment to name the cluster. The cluster name will be '{project_name}-{environment}-cluster' and all the resources will be tagged with 'project:{project_name}'"
+  description = "Ignored if `cluster_id` is specified. The project_name is combined with `environment` to name the cluster. The cluster name will be '{project_name}-{environment}-cluster' and all the resources will be tagged with 'project:{project_name}'"
 }
 
 // Only required if cluster id is not specified
 variable "environment" {
   default     = "dev"
-  description = "Ignored if `cluster_id` is specified. The environment is combined with project_name to name the cluster. The cluster name will be '{project_name}-{environment}-cluster' and all the resources will be tagged with 'env:{environment}'"
+  description = "Ignored if `cluster_id` is specified. The environment is combined with `project_name` to name the cluster. The cluster name will be '{project_name}-{environment}-cluster' and all the resources will be tagged with 'env:{environment}'"
 }
 
 // Only required if cluster id is not specified
