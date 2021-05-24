@@ -22,19 +22,17 @@ module "cluster" {
   roks_version         = local.roks_version
   flavors              = var.flavors
   workers_count        = local.workers_count
-  datacenter           = var.datacenter
   vpc_zone_names       = var.vpc_zone_names
   force_delete_storage = true
+  datacenter           = var.datacenter
+  private_vlan_number  = var.private_vlan_number
+  public_vlan_number   = var.public_vlan_number
 
   // Kubernetes Config parameters:
   // download_config = false
   // config_dir      = local.kubeconfig_dir
   // config_admin    = false
   // config_network  = false
-
-  // Debugging
-  private_vlan_number = var.private_vlan_number
-  public_vlan_number  = var.public_vlan_number
 }
 
 resource "null_resource" "mkdir_kubeconfig_dir" {
@@ -85,11 +83,11 @@ module "portworx" {
   etcd_username         = var.etcd_username
   etcd_password         = var.etcd_password
 
-  // Defaulted.  Don't change
+  // Defaulted.  Do not change
   etcd_secret_name      = "px-etcd-certs"
 }
 
-// TODO: With Terraform 0.13 replace the parameter 'enable' with 'count'
+// TODO: With Terraform 0.13 replace the parameter "enable" with "count
 module "cp4mcm" {
   // source = "../../../../ibm-hcbt/terraform-ibm-cloud-pak/cp4mcm"
   source = "git::https://github.com/ibm-hcbt/terraform-ibm-cloud-pak.git//cp4mcm"
