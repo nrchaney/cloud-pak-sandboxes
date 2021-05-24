@@ -7,6 +7,7 @@ variable "cluster_id" {
 
 // if set to false, cluster is on Classic Infrastructure
 variable "on_vpc" {
+  type        = bool
   default     = false
   description = "Ignored if `cluster_id` is specified. Cluster type to be installed on, 'true' = VPC, 'false' = Classic"
 }
@@ -52,38 +53,36 @@ variable "force_delete_storage" {
 // Only required if cluster id is not specified and 'on_vpc=false'
 variable "datacenter" {
   default     = ""
-  description = "**Classic Only**: Ignored if `cluster_id` is specified. Datacenter or Zone in the region to provision the cluster. List all available zones with: 'ibmcloud ks zone ls --provider classic'. Only required if cluster id not specified and on_vpc=false."
+  description = "**Classic Only**: Ignored if `cluster_id` is specified. Datacenter or Zone in the region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider classic`. Only required if cluster id not specified and on_vpc=false."
 }
 
-// VLAN's numbers variables on the datacenter, they are here until the
-// permissions issues is fixed on Humio account
-// Only required if cluster id is not specified and 'on_vpc=false'
+// VLAN numbers variables on the datacenter
 variable "private_vlan_number" {
   default     = ""
-  description = "**Classic Only**: Ignored if `cluster_id` is specified. Private VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is private and the router begins with bc. Use the ID or Number. Only required if cluster id not specified and on_vpc=false."
-}
-variable "public_vlan_number" {
-  default     = ""
-  description = "**Classic Only**: Ignored if `cluster_id` is specified. Public VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is public and the router begins with fc. Use the ID or Number. Only required if cluster id not specified and on_vpc=false."
+  description = "**Classic Only**: Ignored if `cluster_id` is specified. Private VLAN assigned to your zone. List available VLANs in the zone: `ibmcloud ks vlan ls --zone <datacenter>`, make sure the the VLAN type is private and the router begins with bc. Use the ID or Number."
 }
 
-// Only required if cluster id is not specified and 'on_vpc=true'
+variable "public_vlan_number" {
+  default     = ""
+  description = "**Classic Only**: Ignored if `cluster_id` is specified. Public VLAN assigned to your zone. List available VLANs in the zone: `ibmcloud ks vlan ls --zone <datacenter>`, make sure the the VLAN type is public and the router begins with fc. Use the ID or Number."
+}
+
 variable "vpc_zone_names" {
   type        = list(string)
   default     = ["us-south-1"]
-  description = "**VPC Only**: Ignored if `cluster_id` is specified. Zones in the IBM Cloud VPC region to provision the cluster. List all available zones with: 'ibmcloud ks zone ls --provider vpc-gen2'. Only required if cluster id not specified and on_vpc=true."
+  description = "**VPC Only**: Ignored if `cluster_id` is specified. Zones in the IBM Cloud VPC region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider vpc-gen2`."
 }
 
 // Needed for both Portworx and IAF
 variable "ibmcloud_api_key" {
-  description = "Required for both Portworx and IAF. IBMCloud API Key for the account the resources will be provisioned on. This is need for Portworx. Go here to create an ibmcloud_api_key: https://cloud.ibm.com/iam/apikeys"
+  description = "Required for both Portworx and IAF. IBM Cloud API Key for the account the resources will be provisioned on. Go here to create an ibmcloud_api_key: https://cloud.ibm.com/iam/apikeys"
 }
 
 // Portworx Variables
 variable "install_portworx" {
   type        = bool
   default     = false
-  description = "Install Portworx on the ROKS cluster. `true` or `false`"
+  description = "Install Portworx on the ROKS cluster"
 }
 
 variable "storage_capacity"{
@@ -107,7 +106,7 @@ variable "storage_iops" {
 variable "create_external_etcd" {
     type = bool
     default = false
-    description = "Ignored if Portworx is not enabled: Do you want to create an external etcd database? `true` or `false`"
+    description = "Ignored if Portworx is not enabled: Create an external etcd database?"
 }
 
 # These credentials have been hard-coded because the 'Databases for etcd' service instance is not configured to have a publicly accessible endpoint by default.
