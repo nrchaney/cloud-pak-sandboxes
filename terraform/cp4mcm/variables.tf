@@ -47,33 +47,80 @@ variable "flavors" {
 variable "vpc_zone_names" {
   type        = list(string)
   default     = ["us-south-1"]
-  description = "Ignored if `cluster_id` is specified. **VPC Only**. Zones in the IBM Cloud VPC region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider vpc-gen2`. Only required if cluster id not specified and `on_vpc=true`."
+  description = "**VPC Only**. Ignored if `cluster_id` is specified. Zones in the IBM Cloud VPC region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider vpc-gen2`. Only required if cluster id not specified and `on_vpc=true`."
 }
 
 // Classic Only. Required if cluster id is not specified and 'on_vpc=false'
 variable "datacenter" {
   default     = ""
-  description = "Ignored if `cluster_id` is specified. *Classic Only*: Datacenter or Zone in the region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider classic`. Only required if cluster id not specified and `on_vpc=false`."
+  description = "*Classic Only*: Ignored if `cluster_id` is specified. Datacenter or Zone in the region to provision the cluster. List all available zones with: `ibmcloud ks zone ls --provider classic`. Only required if cluster id not specified and `on_vpc=false`."
 }
 
 // Classic Only: VLAN's numbers on the datacenter
 // Required if cluster id is not specified and 'on_vpc=false'
 variable "private_vlan_number" {
   default     = ""
-  description = "Ignored if `cluster_id` is specified. *Classic Only*. Private VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is private and the router begins with bc. Use the ID or Number."
+  description = "*Classic Only*. Ignored if `cluster_id` is specified. Private VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is private and the router begins with bc. Use the ID or Number."
 }
 variable "public_vlan_number" {
   default     = ""
-  description = "Ignored if `cluster_id` is specified. *Classic Only*. Public VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is public and the router begins with fc. Use the ID or Number."
+  description = "*Classic Only*. Ignored if `cluster_id` is specified. Public VLAN assigned to your zone. List available VLANs in the zone: 'ibmcloud ks vlan ls --zone <datacenter>', make sure the the VLAN type is public and the router begins with fc. Use the ID or Number."
+}
+
+// Portworx Variables
+variable "install_portworx" {
+  type        = bool
+  default     = false
+  description = "Install Portworx on the ROKS cluster. `true` or `false`"
+}
+
+variable "ibmcloud_api_key" {
+  description = "Ignored if Portworx is not enabled: IBMCloud API Key for the account the resources will be provisioned on. This is need for Portworx. Go here to create an ibmcloud_api_key: https://cloud.ibm.com/iam/apikeys"
+}
+
+variable "storage_capacity"{
+    type = number
+    default = 200
+    description = "Ignored if Portworx is not enabled: Storage capacityin GBs"
+}
+
+variable "storage_profile" {
+    type = string
+    default = "10iops-tier"
+    description = "Ignored if Portworx is not enabled. Optional, Storage profile used for creating storage"
+}
+
+variable "storage_iops" {
+    type = number
+    default = 10
+    description = "Ignored if Portworx is not enabled. Optional, Used only if a user provides a custom storage_profile"
+}
+
+variable "create_external_etcd" {
+    type = bool
+    default = false
+    description = "Ignored if Portworx is not enabled: Do you want to create an external etcd database? `true` or `false`"
+}
+
+# These credentials have been hard-coded because the 'Databases for etcd' service instance is not configured to have a publicly accessible endpoint by default.
+# You may override these for additional security.
+variable "etcd_username" {
+  default = ""
+  description = "Ignored if Portworx is not enabled: This has been hard-coded because the 'Databases for etcd' service instance is not configured to have a publicly accessible endpoint by default.  Override these for additional security."
+}
+
+variable "etcd_password" {
+  default = ""
+  description = "Ignored if Portworx is not enabled: This has been hard-coded because the 'Databases for etcd' service instance is not configured to have a publicly accessible endpoint by default.  Override these for additional security."
 }
 
 // MCM Module Variables
 variable "entitled_registry_key" {
   default     = ""
-  description = "Required: Cloud Pak Entitlement Key. Get the entitlement key from: https://myibm.ibm.com/products-services/containerlibrary, copy and paste the key to this variable"
+  description = "Required for MCM: Cloud Pak Entitlement Key. Get the entitlement key from: https://myibm.ibm.com/products-services/containerlibrary, copy and paste the key to this variable"
 }
 variable "entitled_registry_user_email" {
-  description = "Required: Email address of the user owner of the Entitled Registry Key"
+  description = "Required for MCM: Email address of the user owner of the Entitled Registry Key"
 }
 variable "install_infr_mgt_module" {
   default     = false
@@ -100,6 +147,7 @@ variable "install_tech_prev_module" {
   type        = bool
   description = "Set to 'true' to install the Tech Preview module"
 }
+
 
 // Local Variables and constants
 locals {
