@@ -63,7 +63,7 @@ module "portworx" {
 
   // Cluster parameters
   kube_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
-  worker_nodes     = var.workers_count[0]  // Number of workers
+  worker_nodes     = local.workers_count[0]  // Number of workers
 
   // Storage parameters
   install_storage      = true
@@ -93,15 +93,14 @@ module "cp4mcm" {
   source = "git::https://github.com/ibm-hcbt/terraform-ibm-cloud-pak.git//cp4mcm"
   enable = true
   on_vpc = var.on_vpc
-  //roks_is_ready = module.cluster.endpoint
 
   // ROKS cluster parameters:
   openshift_version   = local.roks_version
   cluster_config_path = data.ibm_container_cluster_config.cluster_config.config_file_path
 
   // Was Portworx installed? If so, will need to wait until it is finished, If not installed, force a value so MCM will install
-  portworx_is_ready = var.install_portworx ? module.portworx.portworx_is_ready : "true"
   install_portworx = var.install_portworx
+  portworx_is_ready = var.install_portworx ? module.portworx.portworx_is_ready : "ignore"
 
   // Entitled Registry parameters:
   entitled_registry_key        = length(var.entitled_registry_key) > 0 ? var.entitled_registry_key : file(local.entitled_registry_key_file)
