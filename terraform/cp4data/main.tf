@@ -104,6 +104,7 @@ module "cp4data" {
 
   // Prereqs
   worker_node_flavor = var.flavors[0]
+  portworx_installed = var.install_portworx
 
   // Entitled Registry parameters:
   entitled_registry_key        = var.entitled_registry_key

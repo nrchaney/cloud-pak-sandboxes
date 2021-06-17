@@ -359,14 +359,29 @@ get_vpc() {
 
 get_portworx() {
 
-    echo "${bold}Setup Portworx"
-    cp ./workspace-configuration.json temp.json
-    jq -r '(.template_data[] | .variablestore[] | select(.name == "install_portworx") | .value) |= "true"' temp.json > workspace-configuration.json
+    echo "${bold}Do you want to install Portworx? This will incur additional costs. ${green}"
+    yesno=("Yes" "No")
+    select response in "${yesno[@]}"; do
+        case $response in
+            "Yes")
+                echo "${bold}Setup Portworx"
+                cp ./workspace-configuration.json temp.json
+                jq -r '(.template_data[] | .variablestore[] | select(.name == "install_portworx") | .value) |= "true"' temp.json > workspace-configuration.json
 
-    read -p "${bold}Declare Portworx storage capacity in ${green}gb${bold}, default value is ${green}200: ${normal}" -e STORAGE_CAPACITY
-    cp ./workspace-configuration.json temp.json
-    jq -r --arg v "$STORAGE_CAPACITY" '(.template_data[] | .variablestore[] | select(.name == "STORAGE_CAPACITY") | .value) |= $v' temp.json > workspace-configuration.json
+                read -p "${bold}Declare Portworx storage capacity in ${green}gb${bold}, default value is ${green}200: ${normal}" -e STORAGE_CAPACITY
+                cp ./workspace-configuration.json temp.json
+                jq -r --arg v "$STORAGE_CAPACITY" '(.template_data[] | .variablestore[] | select(.name == "STORAGE_CAPACITY") | .value) |= $v' temp.json > workspace-configuration.json
 
+               break
+               ;;
+            "No")
+               break
+               ;;
+            *) echo "${bold}invalid option $REPLY ${green}";;
+        esac
+    done
+
+    
 }
 
 
